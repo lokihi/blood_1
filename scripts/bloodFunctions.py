@@ -166,7 +166,7 @@ def blood_pressure(file_path, file_name, trend, when):
     plt.savefig(file_name + '.png')
 
 
-def pulse(file_path, file_name, trend, when):
+def pulse(file_path, file_name, trend, when, pogr):
     f = open(file_path, "r")
     m = []
     time = []
@@ -187,7 +187,7 @@ def pulse(file_path, file_name, trend, when):
             break
     fig = plt.figure(figsize=(10, 5), dpi=200)
     plt.axis([0, 21, -20, 20])
-    plt.plot(time_m, pulsem, linewidth=1)
+    plt.plot(time_m, pulsem, linewidth=1,label =f"$Пульс\;уд/мин:{int(len(pulsem)/14*3+pogr)}\;$")
     ax = plt.gca()
     ax.set_facecolor('white')
     plt.xlabel('Время [с]', fontsize=15)
