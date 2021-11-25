@@ -170,18 +170,24 @@ def pulse(file_path, file_name, trend, when):
     f = open(file_path, "r")
     m = []
     time = []
+    time_m = []
     tick = 66.27 / 1000000
     for i in f:
-        m.append(int(i))
-    pulsem = []
-    for i in range(len(m) - 1):
-        pulsem.append((m[i + 1] - m[i]) * trend[0])
-    pulsem.append(0)
+        m.append(int(i)*trend[0])
     for i in range(len(m)):
-        time.append(tick * i)
+        time.append(i*tick)
+    print(len(m))
+    print(len(time))
+    pulsem = []
+    for i in range(0,len(m),1000):
+        if i+1000<len(m):
+            pulsem.append((m[i+1000]-m[i])/(time[i+1000]-time[i]))
+            time_m.append(tick * i)   
+        else:
+            break
     fig = plt.figure(figsize=(10, 5), dpi=200)
-    plt.axis([0, 21, -1, 1])
-    plt.plot(time, pulsem, linewidth=1)
+    plt.axis([0, 21, -20, 20])
+    plt.plot(time_m, pulsem, linewidth=1)
     ax = plt.gca()
     ax.set_facecolor('white')
     plt.xlabel('Время [с]', fontsize=15)
